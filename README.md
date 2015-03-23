@@ -19,10 +19,10 @@ use gravatar::{Gravatar, Rating};
 
 let mut g = Gravatar::new("email@example.com");
 g.size = Some(150);
-g.rating = Some(Rating::R);
+g.rating = Some(Rating::Pg);
 assert_eq!(
     g.image_url(),
     "https://secure.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e\
-     ?s=150&rating=r"
+     ?s=150&r=pg"
 );
 ```

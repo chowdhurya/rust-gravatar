@@ -10,11 +10,11 @@
 //!
 //! let mut g = Gravatar::new("email@example.com");
 //! g.size = Some(150);
-//! g.rating = Some(Rating::R);
+//! g.rating = Some(Rating::Pg);
 //! assert_eq!(
 //!     g.image_url(),
 //!     "https://secure.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e\
-//!      ?s=150&rating=r"
+//!      ?s=150&r=pg"
 //! );
 //! ```
 
@@ -94,7 +94,7 @@ pub struct Gravatar {
     /// For more information, see
     /// http://en.gravatar.com/site/implement/images/#size.
     ///
-    /// *Default value*: `None`
+    /// **Default value:** `None`
     pub size: Option<u16>,
 
     /// The default image to use if the user does not have a Gravatar. If `None`
@@ -104,7 +104,7 @@ pub struct Gravatar {
     /// For more information, see
     /// http://en.gravatar.com/site/implement/images/#default-image.
     ///
-    /// *Default value*: `None`
+    /// **Default value:** `None`
     pub default: Option<Default>,
 
     /// If force_default is set to true, then Gravatar will always return the
@@ -113,7 +113,7 @@ pub struct Gravatar {
     /// For more information, see
     /// http://en.gravatar.com/site/implement/images/#force-default.
     ///
-    /// *Default value*: `false`
+    /// **Default value:** `false`
     pub force_default: bool,
 
     /// The maximum rating level for which Gravatar will show the user's image.
@@ -124,14 +124,14 @@ pub struct Gravatar {
     /// For more information, see
     /// http://en.gravatar.com/site/implement/images/#rating.
     ///
-    /// *Default value*: `None`
+    /// **Default value:** `None`
     pub rating: Option<Rating>,
 
     /// If true, Gravatar's secure URL (https://secure.gravatar.com/avatar/...)
     /// is used. Otherwise, the non-SSL website is used instead
     /// (http://www.gravatar.com/avatar/...).
     ///
-    /// *Default value*: `true`
+    /// **Default value:** `true`
     pub ssl: bool
 }
 
