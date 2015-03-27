@@ -18,7 +18,7 @@
 //! );
 //! ```
 
-#![feature(collections, core)]
+#![feature(collections, convert)]
 
 extern crate crypto;
 extern crate url;
@@ -181,7 +181,7 @@ impl Gravatar {
         match self.default {
             Some(ref d) => {
                 let val = match *d {
-                    Default::Url(ref u) => u.as_slice(),
+                    Default::Url(ref u) => u.as_ref(),
                     Default::Http404 => "404",
                     Default::MysteryMan => "mm",
                     Default::Identicon => "identicon",
@@ -218,7 +218,7 @@ impl Gravatar {
             let mut url = Url::parse(&base_url).ok().unwrap();
             url.set_query_from_pairs(
                 params.iter().map(
-                    |&(ref k, ref v)| (k.as_slice(), v.as_slice())
+                    |&(ref k, ref v)| (k.as_ref(), v.as_ref())
                 )
             );
             url.serialize()
