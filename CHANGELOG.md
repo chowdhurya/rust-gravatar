@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.3 (2015-04-03)
+
+- Removed use of unstable features to work with Rust 1.0.0-beta
+- Updated dependencies
+
 ## 0.1.2 (2015-03-26)
 
 - Replaced use of the deprecated `as_slice()` function with the newer `as_ref()`
