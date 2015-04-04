@@ -18,13 +18,12 @@
 //! );
 //! ```
 
-#![feature(collections, convert)]
-
 extern crate crypto;
 extern crate url;
 
 use crypto::md5::Md5;
 use crypto::digest::Digest;
+use std::ascii::AsciiExt;
 use url::Url;
 
 /// The default image to display if the user's email does not have a Gravatar.
@@ -155,7 +154,7 @@ impl Gravatar {
         // Generate MD5 hash of email
         let hash = {
             let mut hasher = Md5::new();
-            hasher.input_str(&self.email.trim().to_lowercase());
+            hasher.input_str(&self.email.trim().to_ascii_lowercase());
             hasher.result_str()
         };
 
