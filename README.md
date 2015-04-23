@@ -1,9 +1,9 @@
 rust-gravatar
 =============
 
-[![Build Status](https://img.shields.io/travis/chowdhurya/rust-gravatar/master.svg)](https://travis-ci.org/chowdhurya/rust-gravatar)
-[![Cargo version](https://img.shields.io/crates/v/gravatar.svg)](https://crates.io/crates/gravatar)
-[![License](https://img.shields.io/crates/l/gravatar.svg)](https://github.com/chowdhurya/rust-gravatar/blob/master/LICENSE)
+[![Build Status](https://img.shields.io/travis/chowdhurya/rust-gravatar/master.svg?style=flat-square)](https://travis-ci.org/chowdhurya/rust-gravatar)
+[![Cargo version](https://img.shields.io/crates/v/gravatar.svg?style=flat-square)](https://crates.io/crates/gravatar)
+[![License](https://img.shields.io/crates/l/gravatar.svg?style=flat-square)](https://github.com/chowdhurya/rust-gravatar/blob/master/LICENSE)
 
 [Documentation](https://chowdhurya.github.io/rust-gravatar/gravatar/)
 
