@@ -217,7 +217,7 @@ impl Gravatar {
             let mut url = Url::parse(&base_url).ok().unwrap();
             url.set_query_from_pairs(
                 params.iter().map(
-                    |&(ref k, ref v)| (k.as_ref(), v.as_ref())
+                    |&(ref k, ref v)| (&*k, &*v)
                 )
             );
             url.serialize()
