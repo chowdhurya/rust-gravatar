@@ -1,6 +1,6 @@
 [package]
 name = "gravatar"
-version = "0.1.4"
+version = "0.1.5"
 authors = ["Amit Chowdhury <amitc97@gmail.com>"]
 description = "A small library that generates Gravatar image URLs."
 documentation = "https://chowdhurya.github.io/rust-gravatar/gravatar/"
@@ -17,5 +17,5 @@ keywords = [
 license = "BSD-3-Clause"
 
 [dependencies]
-rust-crypto = "0.2.34"
-url = "0.5.5"
+rust-crypto = "0.2.35"
+url = "1.1.0"

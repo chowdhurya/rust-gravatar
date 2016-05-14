@@ -159,21 +159,18 @@ impl Gravatar {
         };
 
         // Create base URL using the hash
-        let base_url = format!(
+        let mut url = Url::parse(&format!(
             "{}.gravatar.com/avatar/{}",
             match self.ssl {
                 true => "https://secure",
                 false => "http://www"
             },
             hash
-        );
-
-        // Create a list of all optional parameter values
-        let mut params: Vec<(String, String)> = Vec::new();
+        )).unwrap();
 
         match self.size {
             Some(ref s) => {
-                params.push(("s".to_string(), s.to_string()));
+                url.query_pairs_mut().append_pair("s", &s.to_string());
             },
             None => {}
         }
@@ -189,12 +186,12 @@ impl Gravatar {
                     Default::Retro => "retro",
                     Default::Blank => "blank",
                 };
-                params.push(("d".to_string(), val.to_string()));
+                url.query_pairs_mut().append_pair("d", val);
             },
             None => {}
         }
         match self.force_default {
-            true => params.push(("f".to_string(), "y".to_string())),
+            true => { url.query_pairs_mut().append_pair("f", "y"); },
             false => {}
         }
         match self.rating {
@@ -205,23 +202,12 @@ impl Gravatar {
                     Rating::R => "r",
                     Rating::X => "x"
                 };
-                params.push(("r".to_string(), val.to_string()));
+                url.query_pairs_mut().append_pair("r", val);
             },
             None => {}
         };
 
-        // Encode base URL with parameters if there are any and return
-        if params.len() == 0 {
-            base_url
-        } else {
-            let mut url = Url::parse(&base_url).ok().unwrap();
-            url.set_query_from_pairs(
-                params.iter().map(
-                    |&(ref k, ref v)| (&*k, &*v)
-                )
-            );
-            url.serialize()
-        }
+        url.into_string()
     }
 
 }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.5 (2016-05-14)
+
+- Updated dependencies
+
 ## 0.1.4 (2016-03-02)
 
 - Fixed type resolution failure
