@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Default","The default image to display if the user's email does not have a Gravatar."],["Rating","The maximum rating level for which Gravatar will show the user's image instead of the specified default."]],"struct":[["Gravatar","Representation of a single Gravatar image URL."]]});
