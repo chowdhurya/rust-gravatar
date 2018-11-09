@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0 (2018-11-10)
+
+- Rewrote the module to hide struct members and use setter functions instead
+- Restricted size parameter to being between 1px and 2048px regardless of user
+  input
+- Changed MD5 hashing library to RustCrypto's `md-5` crate
+
 ## 0.1.5 (2016-05-14)
 
 - Updated dependencies
