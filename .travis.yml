@@ -5,22 +5,43 @@ rust:
   - beta
   - stable
 
-after_success:
-- |
-  [ $TRAVIS_BRANCH = master ] &&
-  [ $TRAVIS_PULL_REQUEST = false ] &&
-  cargo doc --no-deps &&
-  echo '<meta http-equiv="refresh" content="0; url=gravatar/index.html">' > target/doc/index.html &&
-  sudo pip install ghp-import &&
-  ghp-import -n target/doc &&
-  git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages
+before_script:
+  - set -e
+  # prettier-ignore
+  - bash -c -e 'if [ "$TRAVIS_RUST_VERSION" = "nightly" ]; then
+      rustup component add rustfmt-preview;
+      rustup component add clippy-preview;
+      npm install --global prettier;
+    fi'
 
-- |
-  [ $TRAVIS_BRANCH = master ] &&
-  [ $TRAVIS_PULL_REQUEST = false ] &&
-  cargo publish --token ${CRATESIO_TOKEN}
+script:
+  # prettier-ignore
+  - bash -c -e 'if [ "$TRAVIS_RUST_VERSION" = "nightly" ]; then
+      prettier --list-different --prose-wrap always "**/*.{md,yml}";
+      cargo fmt -- --check;
+      cargo clippy -- --deny clippy::all;
+    fi'
+  - cargo build --verbose
+  - cargo test --verbose
+
+before_deploy:
+  - set -e
+  - cargo package
+
+deploy:
+  provider: releases
+  file: target/package/gravatar-$TRAVIS_TAG.crate
+  api_key:
+    secure: EkxBh9x/MH1uYsQkXvGdMXNcgWeiXss4veq5vtUBqfE1EdTpQWrM9fSwfUdFTprg/PPeRCI/SYa5FgRweD3gydhd4DgKHps4Ar/Ji10jxwc2+43IjCnGF9s7mrbfYC78s8DVxOhuNai6fPqWSFbdtkc4ExmrCcLlp52WMlnah1A=
+  skip_cleanup: true
+  on:
+    branch: master
+    tags: true
+    condition: "$TRAVIS_RUST_VERSION = stable"
+
+after_deploy:
+  - cargo publish --token "$CRATESIO_TOKEN"
 
 env:
   global:
-  - secure: EOWkGuqr360rCA5VyV99C3H+DUenykwvCORkibl/O51FrFWtJ9w/YJyrugwxiL53I+EkjzXQ2lrh3LtiZ9BOW/L21G9NEhS20eSf3X4Ayx3NbNO/7/BL3te5CjC8oofJxC6h6pYldCxWkY0w4/lKsfld5C6fihAuK+po06Ab8DA=
-  - secure: UB1XIQGRjp9tChySFJSO8RR3Ufdqg6l0mg6fxbJiBN+EN6b+YhpCHPjq5qmMjNtO706Ku6W+0g15LfqYZ1fySzeDgQMyjGvzLeThEuAmCpqlbp0JGdHtjR7pBsx1aShg95OcB8+hdtfDr3vB/uYtJBssLEt8neCbJHpLd9Uypfc=
+    - secure: "bDAdWu6YQZ/JBGu6MIqZBAWWTK7v65yabRrR98fyzFrZFUnV6T1G8Yxqvll8zjpaTLKN15NytkCdGywlFe4fDBuTekklCqcnSS2uQlld+IVtxsN6WZsr60JmUDazJUWa7wQGn5pEnqvL1COu0XfD0RlNsM6bzhetsP0lbcJiQaM="
