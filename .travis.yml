@@ -30,7 +30,7 @@ before_deploy:
 
 deploy:
   provider: releases
-  file: target/package/gravatar-$TRAVIS_TAG.crate
+  file: target/package/gravatar-${TRAVIS_TAG:1}.crate
   api_key:
     secure: EkxBh9x/MH1uYsQkXvGdMXNcgWeiXss4veq5vtUBqfE1EdTpQWrM9fSwfUdFTprg/PPeRCI/SYa5FgRweD3gydhd4DgKHps4Ar/Ji10jxwc2+43IjCnGF9s7mrbfYC78s8DVxOhuNai6fPqWSFbdtkc4ExmrCcLlp52WMlnah1A=
   skip_cleanup: true
