@@ -48,11 +48,11 @@ fn test_default() {
 fn test_default_url() {
     let mut g = Gravatar::new("email@example.com");
     g.set_default(Some(Default::ImageUrl(
-        Url::parse("http://example.org/im age").unwrap(),
+        Url::parse("http://example.org/im age?").unwrap(),
     )));
     assert_eq!(
         g.image_url().as_str(),
-        "https://secure.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?d=http%3A%2F%2Fexample.org%2Fim%2520age"
+        "https://secure.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?d=http%3A%2F%2Fexample.org%2Fim%2520age%3F"
     )
 }
 

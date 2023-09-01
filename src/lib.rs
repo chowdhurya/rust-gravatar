@@ -21,7 +21,6 @@ extern crate md5;
 extern crate url;
 
 use md5::{Digest, Md5};
-use url::percent_encoding::{utf8_percent_encode, DEFAULT_ENCODE_SET};
 use url::Url;
 
 /// The default image to display if the user's email does not have a Gravatar.
@@ -185,9 +184,7 @@ impl Gravatar {
 
         if let Some(ref d) = self.default {
             let val = match d {
-                Default::ImageUrl(ref u) => {
-                    utf8_percent_encode(u.as_str(), DEFAULT_ENCODE_SET).to_string()
-                }
+                Default::ImageUrl(ref u) => u.to_string(),
                 Default::Http404 => "404".to_string(),
                 Default::MysteryMan => "mm".to_string(),
                 Default::Identicon => "identicon".to_string(),
