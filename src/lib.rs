@@ -161,10 +161,9 @@ impl Gravatar {
     /// Returns the image URL of the user's Gravatar with all specified parameters.
     pub fn image_url(self: &Self) -> Url {
         // Generate MD5 hash of email
-        let digest = Md5::new()
-            .chain(&self.email.trim().to_ascii_lowercase())
-            .result();
-        let hash = format!("{:x}", digest);
+        let mut hasher = Md5::new();
+        hasher.update(&self.email.trim().to_ascii_lowercase());
+        let hash = format!("{:x}", hasher.finalize());
 
         // Create base URL using the hash
         let mut url = Url::parse(&format!(
