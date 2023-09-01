@@ -21,7 +21,6 @@ extern crate md5;
 extern crate url;
 
 use md5::{Digest, Md5};
-use url::percent_encoding::{utf8_percent_encode, DEFAULT_ENCODE_SET};
 use url::Url;
 
 /// The default image to display if the user's email does not have a Gravatar.
@@ -162,10 +161,9 @@ impl Gravatar {
     /// Returns the image URL of the user's Gravatar with all specified parameters.
     pub fn image_url(self: &Self) -> Url {
         // Generate MD5 hash of email
-        let digest = Md5::new()
-            .chain(&self.email.trim().to_ascii_lowercase())
-            .result();
-        let hash = format!("{:x}", digest);
+        let mut hasher = Md5::new();
+        hasher.update(&self.email.trim().to_ascii_lowercase());
+        let hash = format!("{:x}", hasher.finalize());
 
         // Create base URL using the hash
         let mut url = Url::parse(&format!(
@@ -185,9 +183,7 @@ impl Gravatar {
 
         if let Some(ref d) = self.default {
             let val = match d {
-                Default::ImageUrl(ref u) => {
-                    utf8_percent_encode(u.as_str(), DEFAULT_ENCODE_SET).to_string()
-                }
+                Default::ImageUrl(ref u) => u.to_string(),
                 Default::Http404 => "404".to_string(),
                 Default::MysteryMan => "mm".to_string(),
                 Default::Identicon => "identicon".to_string(),
